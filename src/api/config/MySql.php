@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Config;
+namespace Api\Config;
 
 use PDO;
 use PDOException;
 
-use App\Interfaces\DatabaseInterface;
+use Api\Interfaces\DatabaseInterface;
 
 class MySql implements DatabaseInterface
 {

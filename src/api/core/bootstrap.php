@@ -1,7 +1,7 @@
 <?php 
 
-use App\Config\MySql;
-use App\Config\Connection;
+use Api\Config\MySql;
+use Api\Config\Connection;
 
 $baseDir = dirname(getcwd());
 // dirname(__DIR__, 2);
@@ -17,4 +17,4 @@ date_default_timezone_set($_ENV["DEFAULT_TIME_ZONE"]);
 $conn = new Connection(new MySql);
 
 // Model instantiation and connection set
-$model = new App\Models\Model($conn);
+$model = new Api\Models\Model($conn);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace Api\Traits;
 
 trait ApiMethods
 {

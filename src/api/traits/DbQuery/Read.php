@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Traits\DbQuery;
+namespace Api\Traits\DbQuery;
 
-use App\Models\Model;
+use Api\Models\Model;
 
 trait Read
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models;
+namespace Api\Models;
 
-use App\Config\Connection;
-use App\Traits\ApiMethods;
+use Api\Config\Connection;
+use Api\Traits\ApiMethods;
 
 // Db query
-use App\Traits\DbQuery\Custom;
-use App\Traits\DbQuery\Create;
-use App\Traits\DbQuery\Read;
-use App\Traits\DbQuery\Update;
-use App\Traits\DbQuery\Delete;
-use App\Traits\DbQuery\BindValues;
+use Api\Traits\DbQuery\Custom;
+use Api\Traits\DbQuery\Create;
+use Api\Traits\DbQuery\Read;
+use Api\Traits\DbQuery\Update;
+use Api\Traits\DbQuery\Delete;
+use Api\Traits\DbQuery\BindValues;
 
 class Model
 {

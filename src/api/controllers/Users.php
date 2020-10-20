@@ -2,7 +2,7 @@
 
 namespace Api\Controllers;
 
-use App\Models\User;
+use Api\Models\User;
 use Api\Controllers\Auth;
 
 class Users extends User

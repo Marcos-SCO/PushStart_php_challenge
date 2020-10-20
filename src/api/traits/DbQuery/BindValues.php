@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\DbQuery;
+namespace Api\Traits\DbQuery;
 
 trait BindValues
 {

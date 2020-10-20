@@ -2,7 +2,7 @@
 
 namespace Api\Controllers;
 
-use App\Models\Model;
+use Api\Models\Model;
 use \Firebase\JWT\JWT;
 
 class Auth extends Model
