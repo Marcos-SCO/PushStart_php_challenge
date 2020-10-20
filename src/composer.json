@@ -1,0 +1,20 @@
+{
+    "name": "marcos/codigos-interessantes",
+    "authors": [
+        {
+            "name": "Marcos-SCO",
+            "email": "marcos_sco@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app",
+            "Api\\": "api"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.2",
+        "coffeecode/router": "^1.0",
+        "firebase/php-jwt": "^5.2"
+    }
+}
