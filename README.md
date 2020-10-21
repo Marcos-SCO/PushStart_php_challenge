@@ -1,7 +1,7 @@
 # PushStart_php_challenge
 PushStart Php Rest api challenge 
 
-### <p id='about'>📑 About</p>
+### <p id='about'>📑 Sobre</p>
 
 Projeto de api rest realizado como teste na Push Start.
 
@@ -17,16 +17,14 @@ Projeto de api rest realizado como teste na Push Start.
  
 <br/>
 
-### <p id='install'>🔥 Dependências</p>
+### <p id='install'>📋 Dependências</p>
 
 <ul>
   <li>"vlucas/phpdotenv": "^5.2"</li>
   <li>"coffeecode/router": "^1.0"</li>
 </ul>
 
-<br>
-
-### <p id='install'>🔥 Como instalar</p>
+### <p id='install'> Como instalar</p>
 
 #### Baixe ou Clone.
 
