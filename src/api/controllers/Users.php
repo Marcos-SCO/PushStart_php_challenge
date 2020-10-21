@@ -18,38 +18,44 @@ class Users extends User
 
     public function createUser()
     {
-        $data = $this->getContents();
+        $data = $this->getPostData();
         extract($data);
 
         // Find email in db
-        $findUser = $this->customQuery("SELECT * FROM users WHERE email = :email", ["email" => $email]);
+        $findUser = $this->selectBy("email", $email);
 
         // Password Hash
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        if (!$findUser) {
-            $this->insert([
-                "first_name" => $first_name,
-                "last_name" => $last_name,
-                "email" => $email,
-                "password" => $password,
-            ]);
+        // if (!$findUser) {
 
-            http_response_code(201);
-            echo json_encode(
-                [
-                    "status" => "Usuário criado com sucesso!",
-                    $data
-                ]
-            );
-        } else {
-            http_response_code(401);
-            echo json_encode(
-                [
-                    "status" => "Erro: Usuário já existe no DB",
-                ]
-            );
-        }
+        $img_path = $this->imgCreateHandler();
+
+        $this->moveUpload($img_path);
+
+        $this->insert([
+            "first_name" => $first_name,
+            "last_name" => $last_name,
+            "email" => $email,
+            "password" => $password,
+            "img_path" => $img_path
+        ]);
+
+        http_response_code(201);
+        echo json_encode(
+            [
+                "status" => "Usuário criado com sucesso!",
+                $data
+            ]
+        );
+        // } else {
+        //     http_response_code(401);
+        //     echo json_encode(
+        //         [
+        //             "status" => "Erro: Usuário já existe no DB",
+        //         ]
+        //     );
+        // }
     }
 
     public function deleteUser()
@@ -57,32 +63,36 @@ class Users extends User
         $data = $this->getContents();
         extract($data);
 
-        if (Auth::checkAuth()) {
-            if ($this->delete(["email" => $email])) {
-                http_response_code(200);
+        // if (Auth::checkAuth()) {
+        $id = $this->customQuery("SELECT id_user FROM users WHERE email = :email", ["email" => $email]);
+        if ($this->delete(["email" => $email])) {
 
-                echo json_encode(
-                    [
-                        "status" => "Usuário deletado com sucesso!",
-                        "response" => $data
-                    ]
-                );
-            } else {
-                http_response_code(404);
-                echo json_encode(
-                    [
-                        "status" => "Usuário não podê ser deletado"
-                    ]
-                );
-            }
-        } else {
-            http_response_code(401);
+            $this->deleteFolder($id[0]->id_user);
+
+            http_response_code(200);
+
             echo json_encode(
                 [
-                    "status" => "Usuário não autenticado!"
+                    "status" => "Usuário deletado com sucesso!",
+                    "response" => $data
+                ]
+            );
+        } else {
+            http_response_code(404);
+            echo json_encode(
+                [
+                    "status" => "Usuário não podê ser deletado"
                 ]
             );
         }
+        // } else {
+        //     http_response_code(401);
+        //     echo json_encode(
+        //         [
+        //             "status" => "Usuário não autenticado!"
+        //         ]
+        //     );
+        // }
     }
 
     public function updateUser()
@@ -132,7 +142,8 @@ class Users extends User
     {
         extract($id);
         http_response_code(200);
-        $user = $this->customQuery('SELECT * FROM users where id = :id', ["id" => $id], "fetch");
+
+        $user = $this->selectUser($id);
 
         if ($user) {
             echo json_encode(

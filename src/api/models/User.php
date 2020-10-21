@@ -2,8 +2,13 @@
 
 namespace Api\Models;
 
+use Api\Traits\ImgUpload;
+
 class User extends Model
 {
+
+    use ImgUpload;
+
     public function __construct()
     {
         Self::$table = 'users';
@@ -18,6 +23,6 @@ class User extends Model
     {
         // extract($id);
 
-        return $this->selectBy("id", $id);
+        return $this->selectBy("id_user", $id);
     }
 }

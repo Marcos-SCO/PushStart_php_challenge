@@ -10,4 +10,8 @@ trait ApiMethods
 
         return $input;
     }
+
+    public function getPostData() {
+        return $_POST;
+    }
 }
