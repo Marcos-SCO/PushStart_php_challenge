@@ -61,11 +61,11 @@ Para fazer o teste das endpoints utilize um api client como o Postman.
 url: {{BASE}}/login  
 Método: POST
 
-Exemplo de requisição:
-{
-    “first_name”: “username”, 
-    “last_name”: “userlastname” 
-}
+        Exemplo de requisição:
+        {
+            “first_name”: “username”, 
+            “last_name”: “userlastname” 
+        }
 
 
 - Exibir informações com um id: 
@@ -77,13 +77,13 @@ Método: GET
 url: {{BASE}}/usuario  
 Método: PUT
 
-Exemplo de requisição:
-{
-    "first_name : “first_name”,
-    "last_name" : “last_name”,
-    "password" :“password”,
-    "email" : ”email” 
-}
+        Exemplo de requisição:
+        {
+            "first_name : “first_name”,
+            "last_name" : “last_name”,
+            "password" :“password”,
+            "email" : ”email” 
+        }
 
 
 - Atualizar imagem: 
@@ -93,8 +93,8 @@ Método: POST
 Utilize form-data com key e value
 Exemplo de requisição:
 
-Id_user : 1,
-Img_path : imagem selecionada  
+        Id_user : 1,
+        Img_path : imagem selecionada  
 
 
 - Sair da sessão
@@ -102,9 +102,9 @@ url: {{BASE}}/usuario
 Método: DELETE
 
 Exemplo de requisição:
-{
-    "email" : ”email” 
-}
+        {
+            "email" : ”email” 
+        }
 
 
 - Pegar todos registros:
@@ -119,11 +119,11 @@ Método: POST
 Utilize form-data com key e value
 Exemplo de requisição:
        
-    first_name : first_name,
-    last_name : last_name,
-    password : password,
-    email : email 
-    Img_path : imagem selecionada  
+        first_name : first_name,
+        last_name : last_name,
+        password : password,
+        email : email 
+        Img_path : imagem selecionada  
 
 
 - Deletar usuário
