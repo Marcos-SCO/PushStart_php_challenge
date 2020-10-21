@@ -1,5 +1,5 @@
 {
-    "name": "marcos/codigos-interessantes",
+    "name": "marcos/PushStart_php_challenge",
     "authors": [
         {
             "name": "Marcos-SCO",
@@ -13,7 +13,6 @@
     },
     "require": {
         "vlucas/phpdotenv": "^5.2",
-        "coffeecode/router": "^1.0",
-        "firebase/php-jwt": "^5.2"
+        "coffeecode/router": "^1.0"
     }
 }
