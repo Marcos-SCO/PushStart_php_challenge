@@ -18,10 +18,10 @@ $router->post("/login", "Auth:login");
 
 // Usuários
 $router->get("/usuarios", "Users:index");
-$router->get("/usuarios/{id}", "Users:getUser");
-$router->post("/usuarios", "Users:createUser");
-$router->delete("/usuarios", "Users:deleteUser");
-$router->put("/usuarios", "Users:updateUser");
+$router->get("/usuario/{id}", "Users:getUser");
+$router->post("/usuario", "Users:createUser");
+$router->delete("/usuario", "Users:deleteUser");
+$router->put("/usuario", "Users:updateUser");
 
 $router->dispatch();
 
