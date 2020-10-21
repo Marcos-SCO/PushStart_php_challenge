@@ -8,16 +8,6 @@ trait ImgUpload
 {
     /* Img methods Start */
 
-    public function imgValidate()
-    {
-        $valid_extensions = ['jpeg', 'jpg', 'png', 'gif'];
-        $imgExt = strtolower(pathinfo($_FILES['img_path']['name'], PATHINFO_EXTENSION));
-        if (!in_array($imgExt, $valid_extensions)) {
-            $valid_extensions = implode(', ', $valid_extensions);
-            return "Enviei somente {$valid_extensions}";
-        }
-    }
-
     public function moveUpload($imgFullPath)
     {
         if ($_FILES["img_path"]["tmp_name"] != "") {
@@ -29,16 +19,20 @@ trait ImgUpload
 
     public function imgCreateHandler()
     {
-        $tableIdAutoIncrement = $this->customQuery("SELECT AUTO_INCREMENT
+        if (!isset($_POST['id_user'])) {
+            $tableIdAutoIncrement = $this->customQuery("SELECT AUTO_INCREMENT
          FROM information_schema.TABLES
          WHERE TABLE_SCHEMA = :schema
          AND TABLE_NAME = :table", [
-            'schema' => $_ENV['DBNAME'],
-            'table' => Model::$table
-        ]);
-        $tableId = strval($tableIdAutoIncrement[0]->AUTO_INCREMENT);
+                'schema' => $_ENV['DBNAME'],
+                'table' => Model::$table
+            ]);
+            $id = strval($tableIdAutoIncrement[0]->AUTO_INCREMENT);
+        } else {
+            $id = $_POST['id_user'];
+        }
 
-        return $this->imgFullPath($tableId, $_FILES['img_path']['name']);
+        return $this->imgFullPath($id, $_FILES['img_path']['name']);
     }
 
     public function imgFullPath($id, $imgName)
