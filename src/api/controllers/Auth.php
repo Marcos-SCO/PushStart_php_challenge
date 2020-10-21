@@ -17,69 +17,75 @@ class Auth extends Model
         $data = $this->getContents();
         extract($data);
 
-        $selectUser = $this->customQuery("SELECT email, password FROM users WHERE email = :email", ["email" => $email], "fetch");
+        $selectUser = $this->customQuery("SELECT first_name, email, password FROM users WHERE email = :email", ["email" => $email], "fetch");
 
-        $passwordVerified = password_verify($password, $selectUser->password);
+        if (isset($selectUser[0]->email)) {
 
-        if ($selectUser && $passwordVerified) {
-            $secret_key = 123;
-            $issuer_claim = "localhost";
-            $audience_claim = "THE_AUDIENCE";
-            $issuedat_claim = time();
-            $notbefore_claim = $issuedat_claim + 10;
-            $expire_claim = $issuedat_claim + 3600;
-            $token = [
-                "iss" => $issuer_claim,
-                "aud" => $audience_claim,
-                "iat" => $issuedat_claim,
-                "nbf" => $notbefore_claim,
-                "exp" => $expire_claim,
-                "data" => [
-                    "id" => $id,
-                    "first_name" => $first_name,
-                    "last_name" => $last_name,
-                    "email" => $email
-                ]
-            ];
+            $passwordVerified = password_verify($password, $selectUser[0]->password);
 
-            http_response_code(200);
+            if ($selectUser && $passwordVerified) {
 
-            $jwt = JWT::encode($token, $secret_key);
-            echo json_encode(
-                [
-                    "status" => "Logado com sucesso!",
-                    "email" => $email,
-                    "expire_at" => $expire_claim,
-                    "jwt" => $jwt,
-                ]
-            );
+                if (!isset($_COOKIE['user'])) {
+                    $expire_claim = time() + 3600;
+
+                    setcookie('user', $selectUser[0]->first_name, $expire_claim, '/');
+
+                    echo json_encode(
+                        [
+                            "status" => "Logado com sucesso!",
+                            "email" => $email,
+                            "expire_at" => $expire_claim
+                        ]
+                    );
+                } else {
+                    echo json_encode(
+                        [
+                            "status" => "Usuário já está logado",
+                            "email" => $email,
+                        ]
+                    );
+                }
+            } else {
+                echo json_encode(
+                    ["status" => "Dados inválidos!"]
+                );
+            }
         } else {
             echo json_encode(
-                ["status" => "Dados inválidos!"]
+                ["status" => "Usuário não existe"]
             );
         }
     }
 
     public static function checkAuth()
     {
-        $http_header = apache_request_headers();
+        $cookie = isset($_COOKIE['user']) ? true : false;
 
-        if (isset($http_header['Authorization']) && $http_header['Authorization'] != null) {
-            $bearer = explode(' ', $http_header['Authorization']);
-
-            $token = explode('.', $bearer[1]);
-            $header = $token[0];
-            $payload = $token[1];
-            $sign = $token[2];
-
-            // Check signature
-            $valid = JWT::decode($bearer[1], 123, ['HS256']);
-
-            if ($valid) {
-                return true;
-            }
+        if ($cookie) {
+            return true;
         }
 
-        return false;
+        http_response_code(401);
+        echo json_encode(
+            [
+                "status" => "Usuário não autenticado"
+            ]
+        );
+        exit();
+    }
+
+    public static function logout()
+    {
+
+        $removeCookie = isset($_COOKIE['user']) ? setcookie('user', null, -1, '/') : false;
+
+        if ($removeCookie) {
+            http_response_code(200);
+            echo json_encode(
+                [
+                    "status" => "Usuário saiu!",
+                ]
+            );
+        }
     }
 }
