@@ -9,6 +9,8 @@ class Users extends User
 {
     public function index()
     {
+        Auth::checkAuth();
+
         $users = $this->selectAll();
         if ($users) {
             http_response_code(200);
@@ -27,47 +29,51 @@ class Users extends User
         // Password Hash
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        // if (!$findUser) {
+        if (!$findUser) {
 
-        $img_path = $this->imgCreateHandler();
+            $img_path = $this->imgCreateHandler();
 
-        $this->moveUpload($img_path);
+            $this->moveUpload($img_path);
 
-        $this->insert([
-            "first_name" => $first_name,
-            "last_name" => $last_name,
-            "email" => $email,
-            "password" => $password,
-            "img_path" => $img_path
-        ]);
+            $this->insert([
+                "first_name" => $first_name,
+                "last_name" => $last_name,
+                "email" => $email,
+                "password" => $password,
+                "img_path" => $img_path
+            ]);
 
-        http_response_code(201);
-        echo json_encode(
-            [
-                "status" => "Usuário criado com sucesso!",
-                $data
-            ]
-        );
-        // } else {
-        //     http_response_code(401);
-        //     echo json_encode(
-        //         [
-        //             "status" => "Erro: Usuário já existe no DB",
-        //         ]
-        //     );
-        // }
+            http_response_code(201);
+            echo json_encode(
+                [
+                    "status" => "Usuário criado com sucesso!",
+                    $data
+                ]
+            );
+        } else {
+            http_response_code(401);
+            echo json_encode(
+                [
+                    "status" => "Erro: Usuário já existe no DB",
+                ]
+            );
+        }
     }
 
     public function deleteUser()
     {
+        Auth::checkAuth();
+
         $data = $this->getContents();
         extract($data);
 
-        // if (Auth::checkAuth()) {
         $id = $this->customQuery("SELECT id_user FROM users WHERE email = :email", ["email" => $email]);
         if ($this->delete(["email" => $email])) {
 
             $this->deleteFolder($id[0]->id_user);
+
+            // Expire session
+            setcookie('user', null, -1, '/');
 
             http_response_code(200);
 
@@ -81,58 +87,74 @@ class Users extends User
             http_response_code(404);
             echo json_encode(
                 [
-                    "status" => "Usuário não podê ser deletado"
+                    "status" => "Erro: usuário não foi deletado"
                 ]
             );
         }
-        // } else {
-        //     http_response_code(401);
-        //     echo json_encode(
-        //         [
-        //             "status" => "Usuário não autenticado!"
-        //         ]
-        //     );
-        // }
     }
 
     public function updateUser()
     {
+        Auth::checkAuth();
+
         $data = $this->getContents();
         extract($data);
 
-        if (Auth::checkAuth()) {
+        // Rehash password
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
-            // Rehash password
-            $password = password_hash($password, PASSWORD_DEFAULT);
+        $updateUser = $this->update([
+            "first_name" => $first_name,
+            "last_name" => $last_name,
+            "password" => $password,
+            "email" => $email
+        ], ["id_user" => $id_user]);
 
-            $updateUser = $this->update([
-                "first_name" => $first_name,
-                "last_name" => $last_name,
-                "password" => $password,
-                "email" => $email
-            ], ["id" => $id]);
-
-            if ($updateUser) {
-                http_response_code(200);
-                echo json_encode(
-                    [
-                        "status" => "Atualizado com sucesso!",
-                        "body" => $data
-                    ]
-                );
-            } else {
-                http_response_code(401);
-                echo json_encode(
-                    [
-                        "status" => "Não foi possível atualizar"
-                    ]
-                );
-            }
+        if ($updateUser) {
+            http_response_code(200);
+            echo json_encode(
+                [
+                    "status" => "Atualizado com sucesso!",
+                    "body" => $data
+                ]
+            );
         } else {
             http_response_code(401);
             echo json_encode(
                 [
-                    "status" => "Usuário não autenticado!"
+                    "status" => "Não foi possível atualizar"
+                ]
+            );
+        }
+    }
+
+    public function updateImg()
+    {
+        Auth::checkAuth();
+
+        $data = $this->getPostData();
+        extract($data);
+
+        $img_path = $this->imgCreateHandler();
+        $this->moveUpload($img_path);
+
+        $updateImg = $this->update([
+            "img_path" => $img_path,
+        ], ["id_user" => $id_user]);
+
+        if ($updateImg) {
+            http_response_code(200);
+            echo json_encode(
+                [
+                    "status" => "Imagem do usuário atualizada com sucesso!",
+                    "body" => $data
+                ]
+            );
+        } else {
+            http_response_code(401);
+            echo json_encode(
+                [
+                    "status" => "Não foi possível atualizar a imagem do usuário"
                 ]
             );
         }
@@ -140,6 +162,8 @@ class Users extends User
 
     public function getUser($id)
     {
+        Auth::checkAuth();
+
         extract($id);
         http_response_code(200);
 
@@ -149,7 +173,8 @@ class Users extends User
             echo json_encode(
                 [
                     "status" => "Usuário encontrado",
-                    "response" => $user
+                    "response" => $user,
+                    "img_complete_url" => $_ENV['BASE'] . $user->img_path
                 ]
             );
         } else {
@@ -161,5 +186,15 @@ class Users extends User
                 ]
             );
         }
+    }
+
+    public function deleteSession()
+    {
+        Auth::checkAuth();
+
+        $data = $this->getContents();
+        extract($data);
+
+        Auth::logout($email);
     }
 }
