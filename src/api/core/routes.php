@@ -14,14 +14,18 @@ $router = new Router($_ENV["BASE"]);
 $router->namespace("Api\Controllers");
 
 // Auth
-$router->post("/login", "Auth:login");
+$router->post("/login", "Auth:login"); // 1
 
 // Usuários
+$router->get("/usuario/{id}", "Users:getUser"); // 2
+$router->put("/usuario", "Users:updateUser"); // 3
+$router->post("/usuario", "Users:updateImg"); // 4
+$router->delete("/usuario", "Users:deleteSession"); // 5
+
+// Extras
 $router->get("/usuarios", "Users:index");
-$router->get("/usuario/{id}", "Users:getUser");
-$router->post("/usuario", "Users:createUser");
-$router->delete("/usuario", "Users:deleteUser");
-$router->put("/usuario", "Users:updateUser");
+$router->post("/usuario/criar", "Users:createUser");
+$router->delete("/usuario/deletar", "Users:deleteUser");
 
 $router->dispatch();
 
