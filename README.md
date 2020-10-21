@@ -16,7 +16,7 @@ Projeto de api rest realizado como teste na Push Start.
 </ul>
 
 
-### <p id='install'>📋 Dependências</p>
+### <p id='dependencies'>📋 Dependências</p>
 
 <ul>
   <li>"vlucas/phpdotenv": "^5.2"</li>
@@ -24,7 +24,7 @@ Projeto de api rest realizado como teste na Push Start.
 </ul>
 
 
-### <p id='install'> Como instalar</p>
+### <p id='install'>🔥 Como instalar</p>
 
 #### Baixe ou Clone.
 
@@ -57,79 +57,80 @@ Para fazer o teste das endpoints utilize um api client como o Postman.
 
 ### Endpoints da api:
     
-    1 - Login: 
-    url: {{BASE}}/login  
-    Método: POST
+- Login: 
+url: {{BASE}}/login  
+Método: POST
 
-    Exemplo de requisição:
-    {
-        “first_name”: “username”, 
-        “last_name”: “userlastname” 
-    }
-
-
-    2 – Exibir informações com um id: 
-    url: {{BASE}}/usuario/{id}  
-    Método: GET
+Exemplo de requisição:
+{
+    “first_name”: “username”, 
+    “last_name”: “userlastname” 
+}
 
 
-    3 - Atualizar informações: 
-    url: {{BASE}}/usuario  
-    Método: PUT
-    
-    Exemplo de requisição:
-    {
-        "first_name : “first_name”,
-        "last_name" : “last_name”,
-        "password" :“password”,
-        "email" : ”email” 
-    }
+- Exibir informações com um id: 
+url: {{BASE}}/usuario/{id}  
+Método: GET
 
 
-    4 – Atualizar imagem: 
-    url: {{BASE}}/usuario  
-    Método: POST
+- Atualizar informações: 
+url: {{BASE}}/usuario  
+Método: PUT
 
-    Utilize form-data com key e value
-    Exemplo de requisição:
-    Id_user : 1,
+Exemplo de requisição:
+{
+    "first_name : “first_name”,
+    "last_name" : “last_name”,
+    "password" :“password”,
+    "email" : ”email” 
+}
+
+
+- Atualizar imagem: 
+url: {{BASE}}/usuario  
+Método: POST
+
+Utilize form-data com key e value
+Exemplo de requisição:
+
+Id_user : 1,
+Img_path : imagem selecionada  
+
+
+- Sair da sessão
+url: {{BASE}}/usuario  
+Método: DELETE
+
+Exemplo de requisição:
+{
+    "email" : ”email” 
+}
+
+
+- Pegar todos registros:
+url: {{BASE}}/usuarios  
+Método: GET
+
+
+- Criar registro: 
+url: {{BASE}}/usuário/criar  
+Método: POST
+
+Utilize form-data com key e value
+Exemplo de requisição:
+       
+    first_name : first_name,
+    last_name : last_name,
+    password : password,
+    email : email 
     Img_path : imagem selecionada  
 
 
-    5 – Sair da sessão
-    url: {{BASE}}/usuario  
-    Método: DELETE
+- Deletar usuário
+url: {{BASE}}/usuário/deletar  
+Método: DELETE
 
-    Exemplo de requisição:
-    {
-        "email" : ”email” 
-    }
-
-
-    6 - Pegar todos registros:
-    url: {{BASE}}/usuarios  
-    Método: GET
-
-
-    7 - Criar registro: 
-    url: {{BASE}}/usuário/criar  
-    Método: POST
-
-    Utilize form-data com key e value
-    Exemplo de requisição:
-       
-       first_name : first_name,
-       last_name : last_name,
-       password : password,
-       email : email 
-       Img_path : imagem selecionada  
-
-
-    8 - Deletar usuário
-    url: {{BASE}}/usuário/deletar  
-    Método: DELETE
-
-    Exemplo de requisição:
-    {
-        "email" : ”email” 
-    }
+Exemplo de requisição:
+{
+    "email" : ”email” 
+}
