@@ -107,7 +107,7 @@ Método: POST
 url: {{BASE}}/usuario  
 Método: DELETE
 
-Exemplo de requisição:
+        Exemplo de requisição:
         {
             "email" : ”email” 
         }
