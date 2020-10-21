@@ -67,11 +67,13 @@ Método: POST
             “last_name”: “userlastname” 
         }
 
+<br>
 
 - Exibir informações com um id: 
 url: {{BASE}}/usuario/{id}  
 Método: GET
 
+<br>
 
 - Atualizar informações: 
 url: {{BASE}}/usuario  
@@ -85,10 +87,13 @@ Método: PUT
             "email" : ”email” 
         }
 
+<br>
 
 - Atualizar imagem: 
 url: {{BASE}}/usuario  
 Método: POST
+
+<br>
 
 Utilize form-data com key e value
 Exemplo de requisição:
@@ -96,6 +101,7 @@ Exemplo de requisição:
         Id_user : 1,
         Img_path : imagem selecionada  
 
+<br>
 
 - Sair da sessão
 url: {{BASE}}/usuario  
@@ -106,11 +112,13 @@ Exemplo de requisição:
             "email" : ”email” 
         }
 
+<br>
 
 - Pegar todos registros:
 url: {{BASE}}/usuarios  
 Método: GET
 
+<br>
 
 - Criar registro: 
 url: {{BASE}}/usuário/criar  
@@ -125,6 +133,7 @@ Exemplo de requisição:
         email : email 
         Img_path : imagem selecionada  
 
+<br>
 
 - Deletar usuário
 url: {{BASE}}/usuário/deletar  
