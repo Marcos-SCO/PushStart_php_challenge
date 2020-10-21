@@ -14,8 +14,7 @@ Projeto de api rest realizado como teste na Push Start.
   <li>MySql</li>
   <li>Composer</li>
 </ul>
- 
-<br/>
+
 
 ### <p id='install'>📋 Dependências</p>
 
@@ -23,6 +22,7 @@ Projeto de api rest realizado como teste na Push Start.
   <li>"vlucas/phpdotenv": "^5.2"</li>
   <li>"coffeecode/router": "^1.0"</li>
 </ul>
+
 
 ### <p id='install'> Como instalar</p>
 
