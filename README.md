@@ -6,7 +6,6 @@ PushStart Php Rest api challenge
 Projeto de api rest realizado como teste na Push Start.
 
 <br/>
-<br/>
 
 ### <p id='tecnology'>🖥 Tecnologias</p>
 
@@ -15,8 +14,7 @@ Projeto de api rest realizado como teste na Push Start.
   <li>MySql</li>
   <li>Composer</li>
 </ul>
-
-<br/> 
+ 
 <br/>
 
 ### <p id='install'>🔥 Dependências</p>
@@ -25,6 +23,8 @@ Projeto de api rest realizado como teste na Push Start.
   <li>"vlucas/phpdotenv": "^5.2"</li>
   <li>"coffeecode/router": "^1.0"</li>
 </ul>
+
+<br>
 
 ### <p id='install'>🔥 Como instalar</p>
 
@@ -42,6 +42,8 @@ $ git clone https://github.com/Marcos-SCO/PushStart_php_challenge
 $ composer install
 ```
 
+<br>
+
 Para rodar o projeto será necessário ter o MySql e Composer instalados.
 
 - Com o MySql crie um banco de dados como o nome: db_api_pushstart
@@ -52,9 +54,6 @@ Para rodar o projeto será necessário ter o MySql e Composer instalados.
 
 Para fazer o teste das endpoints utilize um api client como o Postman.
 
-<br/>
-
-<br/> 
 <br/>
 
 
