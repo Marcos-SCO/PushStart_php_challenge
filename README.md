@@ -95,11 +95,11 @@ Método: POST
 
 <br>
 
-Utilize form-data com key e value
-Exemplo de requisição:
+    Utilize form-data com key e value
+    Exemplo de requisição:
 
-        Id_user : 1,
-        Img_path : imagem selecionada  
+            Id_user : 1,
+            Img_path : imagem selecionada  
 
 <br>
 
@@ -124,14 +124,14 @@ Método: GET
 url: {{BASE}}/usuário/criar  
 Método: POST
 
-Utilize form-data com key e value
-Exemplo de requisição:
-       
-        first_name : first_name,
-        last_name : last_name,
-        password : password,
-        email : email 
-        Img_path : imagem selecionada  
+    Utilize form-data com key e value
+    Exemplo de requisição:
+        
+            first_name : first_name,
+            last_name : last_name,
+            password : password,
+            email : email 
+            Img_path : imagem selecionada  
 
 <br>
 
