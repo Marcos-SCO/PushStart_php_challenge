@@ -124,7 +124,7 @@ Método: GET
 url: {{BASE}}/usuário/criar  
 Método: POST
 
-    Utilize form-data com key e value
+Utilize form-data com key e value
     Exemplo de requisição:
         
             first_name : first_name,
@@ -139,7 +139,7 @@ Método: POST
 url: {{BASE}}/usuário/deletar  
 Método: DELETE
 
-Exemplo de requisição:
-{
-    "email" : ”email” 
-}
+        Exemplo de requisição:
+        {
+            "email" : ”email” 
+        }
